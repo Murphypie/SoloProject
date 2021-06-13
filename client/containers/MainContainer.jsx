@@ -1,18 +1,20 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-class MainContainer extends Component{
-    constructor(props){
-        super(props);
-    }
+import SteamContainer from './SteamContainer.jsx';
 
-    render(){
-        return(
-            <div>
-                <h1>Helllo</h1>
-            </div>
-        )
-    }
+class MainContainer extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return (
+      <div>
+        <SteamContainer />
+      </div>
+    );
+  }
 }
 
 export default MainContainer;
