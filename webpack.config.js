@@ -10,6 +10,9 @@ module.exports = {
     path: path.resolve(__dirname, 'build'),
     filename: 'bundle.js',
   },
+  resolve: {
+    extensions: ['', '.js', '.jsx', '.json']
+  },
   module: {
     rules: [
       {
@@ -20,7 +23,6 @@ module.exports = {
           presets: ['@babel/preset-env', '@babel/preset-react'],
         },
       },
-
       {
         test: /\.s[ac]ss$/i,
         use: [

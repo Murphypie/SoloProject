@@ -33,7 +33,7 @@ class SteamContainer extends Component {
   render(){
     const{steamid, personaname, avatarfull} = this.state.fetchedDetails;
     return(
-      <PlayerSummaries steamid={steamid} profileName={personaname} profilePic={avatarfull}/>
+        <PlayerSummaries steamid={steamid} profileName={personaname} profilePic={avatarfull}/>
     );
   }
 }
