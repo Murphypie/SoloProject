@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import MainContainer from './containers/MainContainer.jsx';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
-import Library from './gamelibrary.jsx';
+import GameLibraryContainer from './containers/GameLibraryContainer.jsx';
+import GameLink from './components/GameLink.jsx'
 
 class App extends Component {
   constructor(props) {
@@ -22,18 +23,12 @@ class App extends Component {
         cache = res.response.games;
         this.setState({ fetchedGames: cache});
       });
-    // Promise.all([
-    //   fetch(`/api`),
-    //   fetch(`../server/data/ownedGames.json`)
-    // ]).then(([res1, res2])=>{
-    //   res1 => res1.json();
-    //   res2 => res2.json();
-    // }).then(([res1, res2])=>{
-    //   detailsCache = res1.response.players[0];
-    //   this.setState({fetchedDetails: detailsCache})
-    //   gameCache = res2.response.games;
-    //   this.setState({ fetchedGames: gameCache});
-    // })
+    fetch('/api')
+    .then((res)=>res.json())
+    .then((res)=>{
+      detailsCache = res.response.players[0];
+      this.setState({fetchedDetails: detailsCache});
+    })
   }
 
   render() {
@@ -53,10 +48,15 @@ class App extends Component {
 
           <Switch>
             <Route path='/Library'>
-              <Library games={this.state.fetchedGames} />
+              <GameLibraryContainer games={this.state.fetchedGames} />
             </Route>
+
+            <Route path = '/gameid'>
+              <GameLink />
+            </Route>
+
             <Route path='/'>
-              <MainContainer/>
+              <MainContainer user={this.state.fetchedDetails}/>
             </Route>
           </Switch>
         </div>

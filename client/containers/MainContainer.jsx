@@ -8,8 +8,7 @@ class MainContainer extends Component {
   render() {
     return (
       <div>
-        {/* <h1> ddd </h1> */}
-        <SteamContainer />
+        <SteamContainer user = {this.props.user}/>
       </div>
     );
   }

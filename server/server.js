@@ -2,7 +2,12 @@ const express = require('express');
 const app = express();
 const path = require('path');
 
+const gameidRouter = require('./routes/gameidRouter')
 const apiRouter = require('./routes/api');
+
+// React doesn't have multiple html. So when entering a subpage of website, it will give you an error
+// There are 3 ways - session, cookies, and react history
+
 
 /*
 Handle parsing request body
@@ -15,6 +20,7 @@ app.use(express.urlencoded({ extended: true }));
 /* Handle requests for static files */
 //app.use(express.static(path.join(__dirname, '../client')));
 
+app.use('/api/gameid', gameidRouter)
 app.use('/api', apiRouter);
 
 if (process.env.NODE_ENV === 'production') {

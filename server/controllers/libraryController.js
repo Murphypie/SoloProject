@@ -39,4 +39,19 @@ libraryController.ownedGamesURL = async (req, res, next) => {
   }
 };
 
+libraryController.getGameDetails = (req, res, next) =>{
+  const id = req.params.appid
+  const gameDetailsURL = `https://store.steampowered.com/api/appdetails?appids=${id}`
+  console.log(gameDetailsURL);
+  fetch(gameDetailsURL)
+  .then(data=>data.json())
+  .then((result)=>{
+    res.locals.gameDetails = JSON.stringify(result);
+    return next();
+  })
+  .catch(error=>{
+    return next(error);
+  })
+}
+
 module.exports = libraryController;

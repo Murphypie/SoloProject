@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
+import GamesDetails from './GamesDetails.jsx';
+import GameLink from './GameLink.jsx';
 
 class GamesSummaries extends Component {
   render() {
-    console.log(this.props.games.length)
-    const gameCache = [];
-    // for (let i = 0; i < this.props.games; i++) {
-    //   gameCache.push(this.state.games[i]);
-    // }
-    //console.log(this.props.games[0]);
     return (
       <div>
-        <h1> Who know?</h1>
+        {/* <h1> {this.props.name} </h1> */}
+        <img src={this.props.url}></img>
       </div>
+      // <div className = "GamesDisplay">
+      //   <GamesDetails url = {this.props.url} name={this.props.name} appid={this.props.appid}/>
+      // </div>
     );
   }
 }

@@ -7,17 +7,10 @@ const router = express.Router();
 router.get(
   "/",
   libraryController.getPlayerSummaries,
+  libraryController.ownedGamesURL,
   (req, res) => {
     return res.status(200).send(res.locals.playerSummaries);
   }
 );
-
-router.get(
-  "/games",
-  libraryController.ownedGamesURL,
-  (req, res) => {
-    return res.status(200).json();
-  }
-)
 
 module.exports = router;
