@@ -6,8 +6,6 @@ const router = express.Router();
 
 
 router.get('/:appid', libraryController.getGameDetails, (req, res) => {
-  return res.status(200).send(res.locals.gameDetails);
+  return res.status(200).send(res.locals);
 });
-
-
 module.exports = router

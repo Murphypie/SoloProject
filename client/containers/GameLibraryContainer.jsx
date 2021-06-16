@@ -15,14 +15,12 @@ class Library extends Component {
 
   handleChangeInc() {
     let number = this.state.counter + 1;
-    //console.log(this.state.counter);
     this.setState({ counter: number });
   }
 
   handleChangeDec() {
     if (this.state.counter > 1) {
       let number = this.state.counter - 1;
-      //console.log(this.state.counter);
       this.setState({ counter: number });
     }
   }
@@ -39,18 +37,11 @@ class Library extends Component {
       let name = gameCache[i].name;
       displayCache.push(
         <div>
-            {/* <Link to='/gameid'> */}
-            <Link to={`/gameid/${gameCache[i].appid}`} >
-              <GamesSummaries key={i} url={url} name={name} appid = {gameCache[i].appid}/>
-              <GameLink key={i} url={url} name={name} appid = {gameCache[i].appid}/>
+            <Link to={`/api/gameid/${gameCache[i].appid}`} >
+              <GamesSummaries key={i} url={url} name={name} appid = {gameCache[i].appid} imglogourl={gameCache[i].img_logo_url}
+              storeId = {this.props.storeId} storeImgUrl={this.props.storeImgUrl}
+              />
             </Link>
-
-            {/* <Switch>
-              <Route path='bi'>
-                <GameLink/>
-               <GameLink url={`https://store.steampowered.com/api/appdetails?appids=${gameCache[i].appid}`}/> 
-              </Route>
-            </Switch> */}
         </div>
       );
     }

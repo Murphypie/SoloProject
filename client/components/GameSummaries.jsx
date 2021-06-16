@@ -6,12 +6,12 @@ class GamesSummaries extends Component {
   render() {
     return (
       <div>
-        {/* <h1> {this.props.name} </h1> */}
-        <img src={this.props.url}></img>
+        <img src={this.props.url} onClick={()=>{
+          this.props.storeId(this.props.appid);
+          this.props.storeImgUrl([this.props.appid, this.props.imglogourl])
+        }}></img>
       </div>
-      // <div className = "GamesDisplay">
-      //   <GamesDetails url = {this.props.url} name={this.props.name} appid={this.props.appid}/>
-      // </div>
+  
     );
   }
 }
