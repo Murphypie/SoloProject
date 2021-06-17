@@ -7,18 +7,21 @@ import * as actions from '../actions/actions.js'
 import GameLibraryContainer from './../containers/GameLibraryContainer.jsx';
 import GameLink from './../components/GameLink.jsx'
 import SteamContainer from './SteamContainer.jsx';
-
+import axios from 'axios'
 
 const mapStateToProps = state => { 
   return{
     appid: state.steam.appid,
     imgurl: state.steam.imgurl,
+    data: state.steam.data,
   }
 };
 
 const mapDispatchToProps = (dispatch) => ({
   storeAppId: (appId) => dispatch(actions.storeAppIdCreator(appId)),
-  storeImgUrl: (payload) => dispatch(actions.storeImgUrlCreator(payload))
+  storeImgUrl: (payload) => dispatch(actions.storeImgUrlCreator(payload)),
+  storeData: (appId) => dispatch(actions.fetchGameDetails(appId)),
+
 });
 
 class MainContainer extends Component {
@@ -33,10 +36,7 @@ class MainContainer extends Component {
 
   componentDidMount() {
     let detailsCache = {};
-    let gameCache = {};
-    let gameDetailsCache = {};
     let cache = {};
-
     fetch(`../server/data/ownedGames.json`)
       .then((res) => res.json())
       .then((res) => {
@@ -50,12 +50,13 @@ class MainContainer extends Component {
       detailsCache = res.response.players[0];
       this.setState({fetchedDetails: detailsCache});
     })
+
   }
 
   render() {
     return (
       <Router>
-        <div>
+        <div className = 'mainWebsite'>
           <nav>
             <ul>
               <li>
@@ -73,7 +74,10 @@ class MainContainer extends Component {
             </Route>
 
             <Route path = '/api/gameid'>
-              <GameLink appid={this.props.appid} games={this.state.fetchedGames} imgurl={this.props.imgurl}/>
+              <GameLink appid={this.props.appid} games={this.state.fetchedGames} 
+              imgurl={this.props.imgurl} data={this.props.data}
+              storeData = {this.props.storeData}
+              />
             </Route>
 
             <Route path='/'>

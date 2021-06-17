@@ -1,34 +1,31 @@
 import React, { Component } from 'react';
-
+import GameLinkResult from './GameLinkResult.jsx'
+import Loading from './Loading.jsx'
 
 class GameLink extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      fetchedGameDetails: {},
+      fetchedAppid: 0,
     };
-
   }
+  
   componentDidMount(){
-    let cache = {};
-    let appid = this.props.imgurl[0];
-    fetch(`${this.props.imgurl[0]}`)
-    .then((res) => res.json())
-    .then((res) => {
-      cache = JSON.parse(res.gameDetails);
-      this.setState({ fetchedGameDetails: cache[appid].data});
-    });
+    this.props.storeData(this.props.imgurl[0]);
+    this.state.fetchedAppid = this.props.imgurl[0]
   }
 
   render() {
-    let url ='http://media.steampowered.com/steamcommunity/public/images/apps/' + this.props.imgurl[0] + '/' + this.props.imgurl[1] +'.jpg';
-    let score = this.state.fetchedGameDetails.metacritic;
+    let checker;
+    if(this.state.fetchedAppid !== this.props.imgurl[0]){
+      checker = <Loading/>
+    }else{
+      checker = <GameLinkResult imgurl={this.props.imgurl} data={this.props.data}/>
+    }
+
     return (
       <div >
-        <img src={url}></img>
-        {/* <p1>{this.state.fetchedGameDetails.about_the_game}</p1> */}
-        <p>{this.state.fetchedGameDetails.detailed_description}</p>
-        {/* <p>{this.state.fetchedGameDetails.metacritic}</p> */}
+        {checker}
       </div>
     );
   }

@@ -37,8 +37,8 @@ class Library extends Component {
       let name = gameCache[i].name;
       displayCache.push(
         <div>
-            <Link to={`/api/gameid/${gameCache[i].appid}`} >
-              <GamesSummaries key={i} url={url} name={name} appid = {gameCache[i].appid} imglogourl={gameCache[i].img_logo_url}
+            <Link to={`/api/gameid/${gameCache[i].appid}`} key={i} >
+              <GamesSummaries key={gameCache[i].appid} url={url} name={name} appid = {gameCache[i].appid} imglogourl={gameCache[i].img_logo_url}
               storeId = {this.props.storeId} storeImgUrl={this.props.storeImgUrl}
               />
             </Link>

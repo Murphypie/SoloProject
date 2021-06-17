@@ -24,7 +24,8 @@ module.exports = {
         },
       },
       {
-        test: /\.s[ac]ss$/i,
+        test: /.(css|scss)$/,
+        exclude: [/node_modules/, /client\/stylesheets\/modules/],
         use: [
           // Creates `style` nodes from JS strings
           'style-loader',
