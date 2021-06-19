@@ -16,15 +16,20 @@ class GameLink extends Component {
   }
 
   render() {
-    let checker;
+    let checker = [];
     if(this.state.fetchedAppid !== this.props.imgurl[0]){
-      checker = <Loading/>
+      checker.push(
+        <div className = 'beforeResult'>
+      <Loading/>
+        </div>
+      )
     }else{
-      checker = <GameLinkResult imgurl={this.props.imgurl} data={this.props.data}/>
+      checker.push(<GameLinkResult imgurl={this.props.imgurl} data={this.props.data}/>)
     }
 
+ 
     return (
-      <div >
+      <div>
         {checker}
       </div>
     );

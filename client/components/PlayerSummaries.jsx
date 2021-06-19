@@ -4,7 +4,7 @@ class PlayerSummaries extends Component {
   render(){
     return(
       <div className = "profile_main">
-        <img src={this.props.profilePic}></img>
+        <img src={this.props.profilePic} id ="profile_img"></img>
         <h1>Welcome {this.props.profileName}</h1>
       </div>
     )

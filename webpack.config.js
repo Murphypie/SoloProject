@@ -16,7 +16,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.jsx?/,
+        test: /.(js|jsx)$/,
         exclude: /node_modules/,
         loader: 'babel-loader',
         options: {
@@ -34,6 +34,10 @@ module.exports = {
           // Compiles Sass to CSS
           'sass-loader',
         ],
+      },
+      { 
+        test: /\.(gif|svg|jpg|png)$/,
+        loader: "file-loader",
       },
     ],
   },

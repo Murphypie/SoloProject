@@ -3,6 +3,9 @@ import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import GamesSummaries from './../components/GameSummaries';
 import GameLink from './../components/GameLink.jsx'
 
+import RightArrow from './../styles/data/RightArrow.png'
+import LeftArrow from './../styles/data/LeftArrow.png'
+
 class Library extends Component {
   constructor(props) {
     super(props);
@@ -11,6 +14,7 @@ class Library extends Component {
     };
     this.handleChangeInc = this.handleChangeInc.bind(this);
     this.handleChangeDec = this.handleChangeDec.bind(this);
+    this.changePage = this.changePage.bind(this);
   }
 
   handleChangeInc() {
@@ -25,6 +29,13 @@ class Library extends Component {
     }
   }
 
+  changePage(event){
+    if(event.key === 'Enter'){
+      const result = Number(document.getElementById('querycount').value);
+      this.setState({counter: result})
+    }
+  }
+
   render() {
     const gameCache = [];
     for (let i = 0; i < this.props.games.length; i++) {
@@ -32,11 +43,13 @@ class Library extends Component {
     }
 
     const displayCache = [];
-    for (let i = (this.state.counter - 1) * 10; i < this.state.counter * 10; i++) {
+    for (let i = (this.state.counter - 1) * 20; i < this.state.counter * 20; i++) {
       let url ='http://media.steampowered.com/steamcommunity/public/images/apps/' + gameCache[i].appid + '/' + gameCache[i].img_logo_url +'.jpg';
       let name = gameCache[i].name;
+      let counter = i- (this.state.counter - 1)*20;
+      let classNameGen = 'gamesdisplay-'+ `${counter}`
       displayCache.push(
-        <div>
+        <div className = {classNameGen}>
             <Link to={`/api/gameid/${gameCache[i].appid}`} key={i} >
               <GamesSummaries key={gameCache[i].appid} url={url} name={name} appid = {gameCache[i].appid} imglogourl={gameCache[i].img_logo_url}
               storeId = {this.props.storeId} storeImgUrl={this.props.storeImgUrl}
@@ -44,15 +57,35 @@ class Library extends Component {
             </Link>
         </div>
       );
+
     }
 
     return (
-      <div>
-        <h1>hello</h1>
-        {displayCache}
-        <button onClick={this.handleChangeDec}>Previous</button>
-        <h1>{this.state.counter}</h1>
-        <button onClick={this.handleChangeInc}>Next </button>
+      <div className = 'libraryMain'>
+
+        <div className = 'headnest'>
+            {displayCache}  
+            <div></div>
+            <div className = 'footnest1'>
+            <img src={LeftArrow} onClick={this.handleChangeDec}></img>
+            </div>
+            <div className = 'footnest2'>
+            {/* <h1>{this.state.counter}</h1> */}
+            <input type="number" id='querycount' placeholder={this.state.counter} onKeyDown={this.changePage}></input>
+            </div>
+            <div className = 'footnest3'>
+            <img src={RightArrow} onClick={this.handleChangeInc}></img>
+            </div>
+            <div></div>
+        </div>
+
+        {/* <div className = 'footnest'>
+            <div className = 'navigatebutton'>
+            <img src={LeftArrow} onClick={this.handleChangeDec}></img>
+            <h1>{this.state.counter}</h1>
+            <img src={RightArrow} onClick={this.handleChangeInc}></img>
+          </div>
+        </div> */}
       </div>
     );
   }

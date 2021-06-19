@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Link, useHistory } from 'react-router-dom';
 
 import * as actions from '../actions/actions.js'
 
 import GameLibraryContainer from './../containers/GameLibraryContainer.jsx';
 import GameLink from './../components/GameLink.jsx'
 import SteamContainer from './SteamContainer.jsx';
-import axios from 'axios'
+
+import {SteamContainerCSS} from '../styles/SteamContainerCSS.js'
+import HomeText from '../styles/data/Home_Text.png'
+import LibraryText from '../styles/data/Library_Text.png'
 
 const mapStateToProps = state => { 
   return{
@@ -57,20 +60,22 @@ class MainContainer extends Component {
     return (
       <Router>
         <div className = 'mainWebsite'>
-          <nav>
+          <nav className = 'navPage'>
             <ul>
-              <li>
-                <Link to='/'>Home</Link>
-              </li>
-              <li>
-                <Link to='/Library'>Library</Link>
-              </li>
+                <Link to='/'>
+                  <img src={HomeText} width="140" height="70"></img>
+                </Link>
+                <Link to='/Library'>
+                  <img src={LibraryText} width="120" height="50"></img>
+                </Link>
             </ul>
           </nav>
 
           <Switch>
             <Route path='/Library'>
-              <GameLibraryContainer games={this.state.fetchedGames} storeId={this.props.storeAppId} storeImgUrl={this.props.storeImgUrl}/>
+              <div className = 'library'>
+                <GameLibraryContainer games={this.state.fetchedGames} storeId={this.props.storeAppId} storeImgUrl={this.props.storeImgUrl}/>
+              </div>
             </Route>
 
             <Route path = '/api/gameid'>
@@ -81,7 +86,11 @@ class MainContainer extends Component {
             </Route>
 
             <Route path='/'>
-              <SteamContainer user={this.state.fetchedDetails}/>
+              <div className="steamContainer">
+              <SteamContainerCSS>
+                <SteamContainer user={this.state.fetchedDetails}/>
+              </SteamContainerCSS>
+              </div>
             </Route>
           </Switch>
         </div>

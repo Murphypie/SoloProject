@@ -44,7 +44,10 @@ libraryController.getGameDetails = (req, res, next) =>{
   //console.log(id)
   const gameDetailsURL = `https://store.steampowered.com/api/appdetails?appids=${id}&format=json`
   //console.log(gameDetailsURL);
-  fetch(gameDetailsURL)
+  fetch(gameDetailsURL, {
+    method: "GET",
+    headers: {'Content-Type': 'application/json; charset=utf-8'},
+  })
   .then(data=>data.json())
   .then((result)=>{
     res.locals.gameDetails = result;

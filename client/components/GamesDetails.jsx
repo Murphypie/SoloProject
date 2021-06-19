@@ -12,22 +12,5 @@ class GamesDetails extends Component {
   }
 }
 
-/*
-        <Router>
-          <h1> {this.props.name} </h1>
-          { </Router><Link to = {'/GameLink'}> }
-          <Link to={`/api/gameid/${this.props.appid}`} >
-            <img src={this.props.url}></img>
-          </Link>
-           <Switch> 
-              <Route path={'/GameLink'} component={GameLink}>  
-            <Route path={`/api/gameid/${this.props.appid}`} component={GameLink}>
-               <GameLink
-                url={`https://store.steampowered.com/api/appdetails?appids=${this.props.appid}`}
-              /> 
-            </Route>
-          </Switch>
-        </Router>
-*/
 
 export default GamesDetails;
