@@ -11,6 +11,11 @@ ul {
     list-style: inside;
 }
 
+body{
+    background-color: rgb(80, 80, 80);
+    z-index: -1;
+}
+
 .mainWebsite{
     background-color: rgb(80, 80, 80);
 }
@@ -26,7 +31,7 @@ ul {
     justify-content: center;
     align-items: center;
     text-align: center;
-    min-height: 100vh;
+    min-height: 80vh;
 }
 
 .libraryMain{
@@ -243,7 +248,7 @@ ul {
 }
 
 .profile_main{
-    color: blue;
+    color: rgb(60, 100, 250);
 }
 
 #profile_img{
@@ -258,6 +263,15 @@ ul {
     display:block;
     object-fit: cover;
 }
+
+#querysearch{
+    width: 80%;
+    height: 800%;
+    text-align: center;
+    height:50px;
+    font-size: 20px;
+}
+
 
 #gamepics{
     width: 100%;

@@ -49,6 +49,12 @@ class GameLinkResult extends Component {
         const images = [];
         let metacritic_score = 0;
         let strippedHTML;
+        let price = `Don't have data`;
+
+        if(price_overview){
+            price = price_overview.final_formatted
+        }
+
         if(metacritic){
             metacritic_score = metacritic.score
         }
@@ -74,6 +80,7 @@ class GameLinkResult extends Component {
                     <h5>About the game: {strippedHTML}</h5>
                     <h1>Developers: {developers}</h1>
                     <h1>Metacritic Score: {metacritic_score}</h1>
+                    <h2>Price: {price}</h2>
                 </div>
             </div>
             )

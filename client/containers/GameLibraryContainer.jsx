@@ -11,10 +11,12 @@ class Library extends Component {
     super(props);
     this.state = {
       counter: 1,
+      search: '',
     };
     this.handleChangeInc = this.handleChangeInc.bind(this);
     this.handleChangeDec = this.handleChangeDec.bind(this);
     this.changePage = this.changePage.bind(this);
+    this.searchQuery = this.searchQuery.bind(this);
   }
 
   handleChangeInc() {
@@ -39,7 +41,7 @@ class Library extends Component {
       if((result*20 < this.props.games.length)&&(result>1)){
         this.setState({counter: result})
         document.getElementById('querycount').value=''
-      }else if(result < 1){
+      }else if(result <= 1){
         this.setState({counter: 1})
         document.getElementById('querycount').value=''
       }else{
@@ -48,14 +50,37 @@ class Library extends Component {
       }
     }
   }
+  
+  searchQuery(event){
+    if(event.key === 'Enter'){
+      const result = document.getElementById('querysearch').value
+      this.setState({search: result})
+      document.getElementById('querysearch').value=''
+    }
+  }
 
   render() {
     const gameCache = [];
-    for (let i = 0; i < this.props.games.length; i++) {
-      gameCache.push( this.props.games[i]);
+    if(this.state.search === ''){
+      for (let i = 0; i < this.props.games.length; i++) {
+        gameCache.push(this.props.games[i]);
+     }
+    }else{
+      for(let i = 0; i <this.props.games.length; i++){
+        const searchstring = this.state.search
+        //console.log(this.props.games[i].name.includes(searchstring))
+        if(this.props.games[i].name.includes(searchstring.toString())){
+           //console.log(this.props.games[i].name)
+           gameCache.push(this.props.games[i]);
+        }
+      }
     }
 
+  //   for (let i = 0; i < this.props.games.length; i++) {
+  //     gameCache.push( this.props.games[i]);
+  //  }
     const displayCache = [];
+    if(gameCache.length === this.props.games.length){
     for (let i = (this.state.counter - 1) * 20; i < this.state.counter * 20; i++) {
       let url ='http://media.steampowered.com/steamcommunity/public/images/apps/' + gameCache[i].appid + '/' + gameCache[i].img_logo_url +'.jpg';
       let name = gameCache[i].name;
@@ -70,7 +95,23 @@ class Library extends Component {
             </Link>
         </div>
       );
+    }
 
+    }else{
+      for(let i = 0; i < gameCache.length; i++){
+        let url ='http://media.steampowered.com/steamcommunity/public/images/apps/' + gameCache[i].appid + '/' + gameCache[i].img_logo_url +'.jpg';
+        let name = gameCache[i].name;
+        let classNameGen = 'gamesdisplay-'+ `${i}`
+        displayCache.push(
+          <div className = {classNameGen}>
+              <Link to={`/api/gameid/${gameCache[i].appid}`} key={i} >
+                <GamesSummaries key={gameCache[i].appid} url={url} name={name} appid = {gameCache[i].appid} imglogourl={gameCache[i].img_logo_url}
+                storeId = {this.props.storeId} storeImgUrl={this.props.storeImgUrl}
+                />
+              </Link>
+          </div>
+        );
+      }
     }
 
     return (
@@ -78,7 +119,9 @@ class Library extends Component {
 
         <div className = 'headnest'>
             {displayCache}  
-            <div></div>
+            <div>
+            <input type="text" id='querysearch' onKeyDown={this.searchQuery}></input>
+            </div>
             <div className = 'footnest1'>
             <img src={LeftArrow} onClick={this.handleChangeDec}></img>
             </div>
