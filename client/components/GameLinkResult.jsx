@@ -13,6 +13,7 @@ class GameLinkResult extends Component {
         }
         this.moveRight = this.moveRight.bind(this);
         this.moveLeft = this.moveLeft.bind(this);
+        this.stripHTML = this.stripHTML.bind(this);
     }
 
     componentDidMount(){
@@ -37,16 +38,21 @@ class GameLinkResult extends Component {
         }
     }
 
+    stripHTML(str){
+        const result = str.replace(/<\/?[^>]+>/gi, '');
+        return result;
+    }
+
     render(){
         const fetchedData = this.props.data.data.gameDetails[this.props.imgurl[0]].data
         const {name, about_the_game, background, categories, detailed_description, developers, release_data, metacritic, screenshots, price_overview} = this.props.data.data.gameDetails[this.props.imgurl[0]].data
         const images = [];
         let metacritic_score = 0;
-
+        let strippedHTML;
         if(metacritic){
             metacritic_score = metacritic.score
         }
-     
+        strippedHTML = this.stripHTML(about_the_game)
         for(let i = 0; i<screenshots.length; i++){
             images.push({
                 original: screenshots[i].path_full})
@@ -65,7 +71,7 @@ class GameLinkResult extends Component {
                     <button className = 'right-arrow' onClick={this.moveRight}>Next</button>
                 </div>
                 <div className = 'description'>
-                    <h1>About the game: {about_the_game}</h1>
+                    <h5>About the game: {strippedHTML}</h5>
                     <h1>Developers: {developers}</h1>
                     <h1>Metacritic Score: {metacritic_score}</h1>
                 </div>

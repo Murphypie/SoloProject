@@ -18,8 +18,12 @@ class Library extends Component {
   }
 
   handleChangeInc() {
-    let number = this.state.counter + 1;
-    this.setState({ counter: number });
+    if((this.state.counter+1)<Math.floor(this.props.games.length/20)){
+      let number = this.state.counter + 1;
+      this.setState({ counter: number });
+    }else{
+      this.setState({ counter: Math.floor(this.props.games.length/20)})
+    }
   }
 
   handleChangeDec() {
@@ -32,7 +36,16 @@ class Library extends Component {
   changePage(event){
     if(event.key === 'Enter'){
       const result = Number(document.getElementById('querycount').value);
-      this.setState({counter: result})
+      if((result*20 < this.props.games.length)&&(result>1)){
+        this.setState({counter: result})
+        document.getElementById('querycount').value=''
+      }else if(result < 1){
+        this.setState({counter: 1})
+        document.getElementById('querycount').value=''
+      }else{
+        this.setState({counter:(Math.floor(this.props.games.length/20))})
+        document.getElementById('querycount').value=''
+      }
     }
   }
 
